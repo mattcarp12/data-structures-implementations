@@ -2,7 +2,7 @@ package com.mattcarp12.data_structures;
 
 public interface MapI<K, V> {
 
-    public V put(K key, V value);
+    public void put(K key, V value);
 
     public V get(K key);
 
