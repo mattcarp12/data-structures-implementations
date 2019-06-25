@@ -5,7 +5,7 @@ public class LinkedList<T> implements ListI<T> {
     public static class Node<T> {
         T x;
         Node next;
-        Node(T x) {
+        public Node(T x) {
             this.x = x;
         }
     }
@@ -13,7 +13,7 @@ public class LinkedList<T> implements ListI<T> {
     Node head; //front of the queue
 
     public LinkedList() {
-        head = new Node(0);
+        head = new Node(null);
     }
     /**
      * {@inheritDoc}
@@ -31,11 +31,12 @@ public class LinkedList<T> implements ListI<T> {
         for (Node t = head; t != null; t = t.next) {
             if (t.next.x.equals(x)) {
                 t.next = t.next.next;
+                return;
             }
         }
     }
 
-    Node find(T x) {
+    public Node find(T x) {
         for (Node t = head; t != null; t = t.next) {
             if (t.next.x.equals(x)) {
                 return t.next;
