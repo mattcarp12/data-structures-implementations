@@ -18,19 +18,22 @@ public class HashMap<K, V> implements MapI<K, V> {
     }
 
     private LinkedList<Pair>[] array = null;
-    private int size;
-    private final int default_size = 4;
+    private int size, capacity;
+    private final int default_capacity = 4;
 
     public HashMap() {
-        array = new LinkedList[default_size];
+        array = new LinkedList[default_capacity];
         size = 0;
+        capacity = default_capacity;
     }
 
 
     @Override
     public void put(K key, V value) {
+        if (array[hash(key)] == null) array[hash(key)] = new LinkedList();
         array[hash(key)].add(new Pair(key, value));
         size++;
+        resize();
     }
 
     @Override
@@ -38,20 +41,21 @@ public class HashMap<K, V> implements MapI<K, V> {
         if (array[hash(key)] == null) return null;  //Throw an exception
         else {
             LinkedList<Pair> t = array[hash(key)];
-            t.find(new Pair(key, null));
+            Pair p = (Pair) t.find(new Pair(key, null)).x;
+            return p.value;
         }
-
-
     }
 
     @Override
     public void remove(K key) {
-        //return null;
+        array[hash(key)].remove(new Pair(key, null));
+        size--;
+        resize();
     }
 
     @Override
     public void clear() {
-        this.array = new LinkedList[default_size];
+        this.array = new LinkedList[default_capacity];
     }
 
     @Override
@@ -70,10 +74,22 @@ public class HashMap<K, V> implements MapI<K, V> {
     }
 
     private int hash(K key) {
-        return (key.hashCode() & 0x7FFFFFFF) % array.length ;
+        return (key.hashCode() & 0x7FFFFFFF) % capacity ;
     }
 
     private void resize() {
-
+        if (size / capacity > 10) capacity *= 2;
+        else if (size / capacity < 2 && capacity > default_capacity) capacity /= 2;
+        else return;
+        capacity *= 2;
+        LinkedList<Pair>[] temp = new LinkedList[capacity];
+        for (int i = 0; i < array.length; i++) {
+            while(array[i].head.next != null) {
+                Pair t = (Pair) array[i].head.next.x;
+                temp[hash(t.key)].add(t);
+                array[i].remove(t);
+            }
+        }
+        array = temp;
     }
 }
