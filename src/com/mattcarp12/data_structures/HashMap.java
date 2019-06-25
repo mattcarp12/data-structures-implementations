@@ -3,16 +3,21 @@ package com.mattcarp12.data_structures;
 //@SuppressWarnings("unchecked")
 public class HashMap<K, V> implements MapI<K, V> {
 
-    private static class Pair<K, V> {
+    private class Pair {
         K key;
         V value;
         Pair(K key, V value) {
             this.key = key;
             this.value = value;
         }
+
+        boolean equals(Pair p) {
+            if (hash(key) != hash(p.key)) return false;
+            return key.equals(p.key);
+        }
     }
 
-    private ListI<Pair<K, V>>[] array = null;
+    private LinkedList<Pair>[] array = null;
     private int size;
     private final int default_size = 4;
 
@@ -24,19 +29,24 @@ public class HashMap<K, V> implements MapI<K, V> {
 
     @Override
     public void put(K key, V value) {
-        array[hash(key) % array.length].add(new Pair(key, value));
+        array[hash(key)].add(new Pair(key, value));
         size++;
-        //return value;
     }
 
     @Override
     public V get(K key) {
-        return null;
+        if (array[hash(key)] == null) return null;  //Throw an exception
+        else {
+            LinkedList<Pair> t = array[hash(key)];
+            t.find(new Pair(key, null));
+        }
+
+
     }
 
     @Override
-    public V remove(K key) {
-        return null;
+    public void remove(K key) {
+        //return null;
     }
 
     @Override
@@ -46,7 +56,7 @@ public class HashMap<K, V> implements MapI<K, V> {
 
     @Override
     public boolean contains(K key) {
-        return !(array[hash(key) % array.length] == null);
+        return get(key) != null;
     }
 
     @Override
@@ -60,7 +70,7 @@ public class HashMap<K, V> implements MapI<K, V> {
     }
 
     private int hash(K key) {
-        return key.hashCode();
+        return (key.hashCode() & 0x7FFFFFFF) % array.length ;
     }
 
     private void resize() {

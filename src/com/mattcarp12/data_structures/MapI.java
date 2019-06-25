@@ -6,7 +6,7 @@ public interface MapI<K, V> {
 
     public V get(K key);
 
-    public V remove(K key);
+    public void remove(K key);
 
     public void clear();
 

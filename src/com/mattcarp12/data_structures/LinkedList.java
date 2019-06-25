@@ -2,8 +2,6 @@ package com.mattcarp12.data_structures;
 
 public class LinkedList<T> implements ListI<T> {
 
-
-
     private static class Node<T> {
         T x;
         Node next;
@@ -13,42 +11,33 @@ public class LinkedList<T> implements ListI<T> {
     }
 
     Node head; //front of the queue
-    Node tail; //end of the queue
-
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void add(T x) {
-        tail.next = new Node(x);
-        tail = tail.next;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void push(T x) {
         Node t = new Node(x);
         t.next = head;
         head = t;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
-    public T remove() {
-        return null;
+    public void remove(T x) {
+        for (Node t = head; t != null; t = t.next) {
+            if (t.next.x.equals(x)) {
+                t.next = t.next.next;
+            }
+        }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public T pop() {
+    Node find(T x) {
+        for (Node t = head; t != null; t = t.next) {
+            if (t.x.equals(x)) {
+                return t;
+            }
+        }
         return null;
     }
-
 }

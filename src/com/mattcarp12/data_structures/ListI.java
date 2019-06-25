@@ -11,25 +11,10 @@ public interface ListI<T> {
     void add(T x);
 
     /**
-     * Add a node with item x to
-     * the front of the queue,
-     * i.e. this becomes the head.
+     * Remove an item from the linked list
+     * if data is equal to x
      * @param x
      */
-    void push(T x);
-
-    /**
-     * Remove an item from front of
-     * the list. Identical to pop();
-     * @return the item at front of list
-     */
-    T remove();
-
-    /**
-     * Identical to remove()
-     * @return
-     */
-    T pop();
-
+    void remove(T x);
 
 }
