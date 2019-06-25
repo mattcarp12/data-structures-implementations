@@ -41,8 +41,12 @@ public class HashMap<K, V> implements MapI<K, V> {
         if (array[hash(key)] == null) return null;  //Throw an exception
         else {
             LinkedList<Pair> t = array[hash(key)];
-            Pair p = (Pair) t.find(new Pair(key, null)).x;
-            return p.value;
+            if (t.find(new Pair(key, null)) == null) return null;
+            else {
+                Pair p = (Pair) t.find(new Pair(key, null)).x;
+                return p.value;
+            }
+
         }
     }
 

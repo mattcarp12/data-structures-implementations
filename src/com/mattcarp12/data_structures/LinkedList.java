@@ -37,7 +37,7 @@ public class LinkedList<T> implements ListI<T> {
     }
 
     public Node find(T x) {
-        for (Node t = head; t != null; t = t.next) {
+        for (Node t = head; t.next != null; t = t.next) {
             if (t.next.x.equals(x)) {
                 return t.next;
             }
