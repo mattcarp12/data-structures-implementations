@@ -11,7 +11,9 @@ public class HashMap<K, V> implements MapI<K, V> {
             this.value = value;
         }
 
-        boolean equals(Pair p) {
+        @Override
+        public boolean equals(Object o) {
+            Pair p = (Pair) o;
             if (hash(key) != hash(p.key)) return false;
             return key.equals(p.key);
         }
