@@ -13,8 +13,8 @@ public class HashTable<K, V> {
         }
 
         @Override
-        public boolean equals(Object p) {
-            p = (Pair) p;
+        public boolean equals(Object o) {
+            Pair p = (Pair) o;
             if (hash(this.key) != hash(p.key)) return false;
             return this.key.equals(p.key);
         }
