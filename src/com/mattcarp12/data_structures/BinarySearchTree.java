@@ -1,6 +1,4 @@
 package com.mattcarp12.data_structures;
-
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -11,36 +9,42 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         V value;
         Node left;
         Node right;
-        Node(K key, V value) {
+        public Node(K key, V value) {
             this.key = key;
             this.value = value;
         }
     }
 
     private Node root;
+    private int size;
 
     public BinarySearchTree() {
         this.root = null;
+        this.size = 0;
     }
 
     @Override
     public void put(K key, V value) {
-        put(root, key, value);
+        if (key == null) throw new IllegalArgumentException("Can't put null key into tree");
+        this.root = put(root, key, value);
     }
 
-    private void put(Node node, K key, V value) {
-        if (node.key.compareTo(key) == 0) {
-            node.value = value;
-        }
-        else if (node == null) {
+    private Node put(Node node, K key, V value) {
+        if (node == null) {
+            this.size++;
             node = new Node(key, value);
         }
+        else if (node.key.compareTo(key) == 0) {
+            node.value = value;
+        }
         else if (node.key.compareTo(key) < 0) {
-            put(node.left, key, value);
+            node.left = put(node.left, key, value);
         }
         else {
-            put(node.right, key, value);
+            node.right = put(node.right, key, value);
         }
+
+        return node;
     }
 
     @Override
@@ -75,12 +79,12 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
 
     @Override
     public int size() {
-        return 0;
+        return this.size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size() == 0;
     }
 
     @Override
@@ -106,5 +110,17 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
     @Override
     public Iterator keys() {
         return null;
+    }
+
+
+
+    public static void main(String[] args) {
+        Tree<Integer, String> bst = new BinarySearchTree<>();
+        bst.put(10, "Hello");
+        bst.put(20, "World!");
+        bst.put(5, "FooBar");
+        System.out.println(bst.size());
+        bst.put(20,"Good night.");
+        System.out.println(bst.size());
     }
 }
