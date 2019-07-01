@@ -20,9 +20,9 @@ public interface Tree<K, V> {
 
     V ceil(K key);
 
-    V min();
+    Iterator keys(TraversalType type);
+}
 
-    V max();
-
-    Iterator keys();
+enum TraversalType {
+    INORDER, PREORDER, POSTORDER, LEVELORDER
 }

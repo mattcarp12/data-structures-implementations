@@ -34,10 +34,11 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
             this.size++;
             node = new Node(key, value);
         }
-        else if (node.key.compareTo(key) == 0) {
+        int comp = key.compareTo(node.key);
+        if (comp == 0) {
             node.value = value;
         }
-        else if (node.key.compareTo(key) < 0) {
+        else if (comp < 0) {
             node.left = put(node.left, key, value);
         }
         else {
@@ -53,13 +54,14 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
     }
 
     private V get(Node node, K key) {
-        if (node == null) {
+        if (node == null || node.value == null) {
             throw new NoSuchElementException("Key does not exist in this BST. Use put() to add a key-value pair.");
         }
-        if (node.key.compareTo(key) == 0) {
+        int comp = key.compareTo(node.key);
+        if (comp == 0) {
             return node.value;
         }
-        else if (node.key.compareTo(key) < 0) {
+        else if (comp < 0) {
             return get(node.left, key);
         }
         else {
@@ -69,12 +71,20 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
 
     @Override
     public boolean contains(K key) {
-        return false;
+        return contains(root, key);
+    }
+
+    private boolean contains(Node node, K key) {
+        if (node == null) return false;
+        int comp = key.compareTo(node.key);
+        if (comp == 0) return true;
+        else if (comp < 0) return contains(node.left, key);
+        else return contains(node.right, key);
     }
 
     @Override
     public void delete(K key) {
-
+        root = put(root, key, null);
     }
 
     @Override
@@ -89,7 +99,21 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
 
     @Override
     public V floor(K key) {
-        return null;
+        if (isEmpty()) throw new NoSuchElementException("Tree is empty!");
+        else if (key == null) throw new IllegalArgumentException("Can't search for null key!");
+        Node t = floor(root, key);
+        if (t == null) return null;
+        return t.value;
+    }
+
+    private Node floor(Node node, K key) {
+        if (node == null) return null;
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0) return node;
+        else if (cmp < 0) return floor(node.left, key);
+        Node t = floor(node.right, key);
+        if (t != null) return t;
+        return node;
     }
 
     @Override
@@ -98,19 +122,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
     }
 
     @Override
-    public V min() {
+    public Iterator keys(TraversalType type) {
         return null;
     }
 
-    @Override
-    public V max() {
-        return null;
-    }
-
-    @Override
-    public Iterator keys() {
-        return null;
-    }
 
 
 
@@ -119,8 +134,15 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         bst.put(10, "Hello");
         bst.put(20, "World!");
         bst.put(5, "FooBar");
+        System.out.println(bst.get(20));
         System.out.println(bst.size());
         bst.put(20,"Good night.");
+        System.out.println(bst.get(20));
         System.out.println(bst.size());
+        bst.put(0, "Matt");
+        bst.put(7, "Ryan");
+        bst.put(14, "Carpenter");
+
+
     }
 }
