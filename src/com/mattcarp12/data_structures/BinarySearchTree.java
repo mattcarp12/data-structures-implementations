@@ -23,6 +23,29 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         this.size = 0;
     }
 
+    public BinarySearchTree(K[] keys, V[] vals) {
+        if (keys.length != vals.length) throw new IllegalArgumentException("Arguments must be equal length");
+        if (keys.length == 0) {this.root = null; this.size = 0;}
+        else {
+            this.root = sortedArraysToBST(keys, vals, 0, keys.length - 1);
+            this.size = keys.length;
+        }
+    }
+
+    private Node sortedArraysToBST(K[] keys, V[] vals, int left, int right) {
+        if (left == right) return new Node(keys[left], vals[left]);
+        if (right - left == 1) {
+            Node root = new Node(keys[right], vals[right]);
+            root.left = new Node(keys[left], vals[right]);
+            return root;
+        }
+        int med = (left + right + 1) / 2;
+        Node root = new Node(keys[med], vals[med]);
+        root.left = sortedArraysToBST(keys, vals, left, med - 1);
+        root.right = sortedArraysToBST(keys, vals, med + 1, right);
+        return root;
+    }
+
     @Override
     public void put(K key, V value) {
         if (key == null) throw new IllegalArgumentException("Can't put null key into tree");
@@ -140,9 +163,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         return null;
     }
 
-
-
-
     public static void main(String[] args) {
         Tree<Integer, String> bst = new BinarySearchTree<>();
         bst.put(10, "Hello");
@@ -158,5 +178,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         bst.put(14, "Carpenter");
         bst.invertTree();
 
+        Integer[] keys = {0,1,2,3,4,5,6};
+        String[] vals = {"Matt", "Ryan", "Carpenter", "is", "an", "awesome", "coder."};
+        Tree<Integer, String> bst2 = new BinarySearchTree(keys, vals);
     }
 }
