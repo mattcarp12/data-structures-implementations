@@ -122,6 +122,20 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
     }
 
     @Override
+    public void invertTree() {
+        root = invertTree(root);
+    }
+
+    private Node invertTree(Node node) {
+        if (node == null) return null;
+        Node right = invertTree(node.right);
+        Node left = invertTree(node.left);
+        node.left = right;
+        node.right = left;
+        return node;
+    }
+
+    @Override
     public Iterator keys(TraversalType type) {
         return null;
     }
@@ -142,7 +156,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         bst.put(0, "Matt");
         bst.put(7, "Ryan");
         bst.put(14, "Carpenter");
-
+        bst.invertTree();
 
     }
 }

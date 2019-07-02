@@ -20,6 +20,8 @@ public interface Tree<K, V> {
 
     V ceil(K key);
 
+    void invertTree();
+
     Iterator keys(TraversalType type);
 }
 
