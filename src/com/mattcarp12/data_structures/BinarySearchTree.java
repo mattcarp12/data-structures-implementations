@@ -32,6 +32,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         }
     }
 
+    public BinarySearchTree(K[] preorder, K[] inorder, V[] values) {
+
+    }
+
     private Node sortedArraysToBST(K[] keys, V[] vals, int left, int right) {
         if (left == right) return new Node(keys[left], vals[left]);
         if (right - left == 1) {
@@ -156,6 +160,23 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         node.left = right;
         node.right = left;
         return node;
+    }
+
+    public K kthSmallest(int k) {
+        int count = 0;
+        return kthSmallest(root, k);
+    }
+
+    private K kthSmallest(Node node, int k) {
+        K t;
+        if (node != null) {
+            t = kthSmallest(node.left, k);
+            if (t < K.MAX_VALUE) return t;
+            if (++count == k) return node.key;
+            t = kthSmallest(node.right, k);
+            if (t < K.MAX_VALUE) return t;
+        }
+        return K.MAX_VALUE;
     }
 
     @Override
