@@ -8,14 +8,13 @@ public interface Heap<T extends Comparable<T>> {
 
     void bubbleUp(int i);
 
-    void trickleDown(int i);
-
     void add(T x);
 
-    void remove(T x);
+    void remove(int i);
 
     T peek();
 
     T pop();
 
+    T[] sortedArray();
 }
