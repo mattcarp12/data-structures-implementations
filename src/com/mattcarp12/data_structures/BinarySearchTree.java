@@ -162,10 +162,12 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         return node;
     }
 
+    /*
     public K kthSmallest(int k) {
         int count = 0;
         return kthSmallest(root, k);
     }
+
 
     private K kthSmallest(Node node, int k) {
         K t;
@@ -178,6 +180,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         }
         return K.MAX_VALUE;
     }
+
+     */
 
     @Override
     public Iterator keys(TraversalType type) {
