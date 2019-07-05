@@ -17,6 +17,9 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
 
     private Node root;
     private int size;
+    private K[] preorder = null;
+    private K[] inorder = null;
+    private V[] values_preorder = null;
 
     public BinarySearchTree() {
         this.root = null;
@@ -32,8 +35,33 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         }
     }
 
-    public BinarySearchTree(K[] preorder, K[] inorder, V[] values) {
+    public BinarySearchTree(K[] preorder, K[] inorder, V[] values_preorder) {
+        this.preorder = preorder;
+        this.inorder = inorder;
+        this.values_preorder = values_preorder;
+        if (preorder.length == 0) this.root = null;
+        else this.root = buildTree(0, preorder.length - 1, 0, inorder.length - 1);
+    }
 
+    private Node buildTree(int pl, int pr, int il, int ir) {
+        Node node = new Node(preorder[pl], values_preorder[pl]);
+        if (pl == pr) return node;
+        int index = indexOf(inorder, preorder[pl]);
+        if (index > il){
+            node.left = buildTree(pl + 1, pl + index - il, il, index - 1);
+        }
+        if (pl + index - il + 1 < pr + 1) {
+            node.right = buildTree(pl + index - il + 1, pr, index + 1, ir);
+        }
+        return node;
+    }
+
+    private int indexOf(K[] keys, K k) {
+        int i;
+        for(i = 0; i < keys.length; i++) {
+            if (keys[i].compareTo(k) == 0) return i;
+        }
+        return -1;
     }
 
     private Node sortedArraysToBST(K[] keys, V[] vals, int left, int right) {
