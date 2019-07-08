@@ -1,4 +1,4 @@
-package com.mattcarp12.data_structures;
+package com.mattcarp12.data_structures.Graph;
 
 import java.util.List;
 

@@ -1,37 +1,38 @@
-package com.mattcarp12.data_structures;
+package com.mattcarp12.data_structures.HashTable;
 
-import java.util.LinkedList;
+import com.mattcarp12.data_structures.LinkedList;
 
-public class HashTable<K, V> {
+//@SuppressWarnings("unchecked")
+public class HashMap<K, V> implements MapI<K, V> {
 
-    class Pair {
+    private class Pair {
         K key;
-        V val;
-        Pair(K key, V val) {
+        V value;
+        Pair(K key, V value) {
             this.key = key;
-            this.val = val;
+            this.value = value;
         }
 
         @Override
         public boolean equals(Object o) {
             Pair p = (Pair) o;
-            if (hash(this.key) != hash(p.key)) return false;
-            return this.key.equals(p.key);
+            if (hash(key) != hash(p.key)) return false;
+            return key.equals(p.key);
         }
     }
 
-    private LinkedList<Pair>[] array;
-    private int capacity, size;
+    private LinkedList<Pair>[] array = null;
+    private int size, capacity;
     private final int default_capacity = 4;
 
-
-    public HashTable() {
-        this.array = new LinkedList[default_capacity];
-        this.size = 0;
-        this.capacity = default_capacity;
+    public HashMap() {
+        array = new LinkedList[default_capacity];
+        size = 0;
+        capacity = default_capacity;
     }
 
 
+    @Override
     public void put(K key, V value) {
         if (array[hash(key)] == null) array[hash(key)] = new LinkedList();
         array[hash(key)].add(new Pair(key, value));
@@ -39,36 +40,43 @@ public class HashTable<K, V> {
         resize();
     }
 
+    @Override
     public V get(K key) {
-        if (array[hash(key)] == null) return null;
+        if (array[hash(key)] == null) return null;  //Throw an exception
         else {
             LinkedList<Pair> t = array[hash(key)];
-            int index = t.indexOf(new Pair(key, null));
-            if (index == -1) return null;
+            if (t.find(new Pair(key, null)) == null) return null;
             else {
-                return t.get(index).val;
+                Pair p = (Pair) t.find(new Pair(key, null)).x;
+                return p.value;
             }
+
         }
     }
 
+    @Override
     public void remove(K key) {
         array[hash(key)].remove(new Pair(key, null));
         size--;
         resize();
     }
 
+    @Override
     public void clear() {
         this.array = new LinkedList[default_capacity];
     }
 
+    @Override
     public boolean contains(K key) {
         return get(key) != null;
     }
 
+    @Override
     public int size() {
         return this.size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -84,14 +92,12 @@ public class HashTable<K, V> {
         capacity *= 2;
         LinkedList<Pair>[] temp = new LinkedList[capacity];
         for (int i = 0; i < array.length; i++) {
-            while(array[i].size() != 0) {
-                Pair t = array[i].remove();
+            while(array[i].head.next != null) {
+                Pair t = (Pair) array[i].head.next.x;
                 temp[hash(t.key)].add(t);
+                array[i].remove(t);
             }
         }
         array = temp;
     }
-
-
-
 }

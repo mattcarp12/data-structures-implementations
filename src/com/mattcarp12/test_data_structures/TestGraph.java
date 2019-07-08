@@ -1,7 +1,7 @@
 package com.mattcarp12.test_data_structures;
 
-import com.mattcarp12.data_structures.Graph;
-import com.mattcarp12.data_structures.GraphAdjacencyMatrix;
+import com.mattcarp12.data_structures.Graph.Graph;
+import com.mattcarp12.data_structures.Graph.GraphAdjacencyMatrix;
 import org.junit.Test;
 
 public class TestGraph {

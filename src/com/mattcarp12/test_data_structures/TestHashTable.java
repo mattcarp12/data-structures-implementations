@@ -1,6 +1,6 @@
 package com.mattcarp12.test_data_structures;
 
-import com.mattcarp12.data_structures.HashTable;
+import com.mattcarp12.data_structures.HashTable.HashTable;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

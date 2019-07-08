@@ -1,36 +1,37 @@
-package com.mattcarp12.data_structures;
+package com.mattcarp12.data_structures.HashTable;
 
-//@SuppressWarnings("unchecked")
-public class HashMap<K, V> implements MapI<K, V> {
+import java.util.LinkedList;
 
-    private class Pair {
+public class HashTable<K, V> {
+
+    class Pair {
         K key;
-        V value;
-        Pair(K key, V value) {
+        V val;
+        Pair(K key, V val) {
             this.key = key;
-            this.value = value;
+            this.val = val;
         }
 
         @Override
         public boolean equals(Object o) {
             Pair p = (Pair) o;
-            if (hash(key) != hash(p.key)) return false;
-            return key.equals(p.key);
+            if (hash(this.key) != hash(p.key)) return false;
+            return this.key.equals(p.key);
         }
     }
 
-    private LinkedList<Pair>[] array = null;
-    private int size, capacity;
+    private LinkedList<Pair>[] array;
+    private int capacity, size;
     private final int default_capacity = 4;
 
-    public HashMap() {
-        array = new LinkedList[default_capacity];
-        size = 0;
-        capacity = default_capacity;
+
+    public HashTable() {
+        this.array = new LinkedList[default_capacity];
+        this.size = 0;
+        this.capacity = default_capacity;
     }
 
 
-    @Override
     public void put(K key, V value) {
         if (array[hash(key)] == null) array[hash(key)] = new LinkedList();
         array[hash(key)].add(new Pair(key, value));
@@ -38,43 +39,36 @@ public class HashMap<K, V> implements MapI<K, V> {
         resize();
     }
 
-    @Override
     public V get(K key) {
-        if (array[hash(key)] == null) return null;  //Throw an exception
+        if (array[hash(key)] == null) return null;
         else {
             LinkedList<Pair> t = array[hash(key)];
-            if (t.find(new Pair(key, null)) == null) return null;
+            int index = t.indexOf(new Pair(key, null));
+            if (index == -1) return null;
             else {
-                Pair p = (Pair) t.find(new Pair(key, null)).x;
-                return p.value;
+                return t.get(index).val;
             }
-
         }
     }
 
-    @Override
     public void remove(K key) {
         array[hash(key)].remove(new Pair(key, null));
         size--;
         resize();
     }
 
-    @Override
     public void clear() {
         this.array = new LinkedList[default_capacity];
     }
 
-    @Override
     public boolean contains(K key) {
         return get(key) != null;
     }
 
-    @Override
     public int size() {
         return this.size;
     }
 
-    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -90,12 +84,14 @@ public class HashMap<K, V> implements MapI<K, V> {
         capacity *= 2;
         LinkedList<Pair>[] temp = new LinkedList[capacity];
         for (int i = 0; i < array.length; i++) {
-            while(array[i].head.next != null) {
-                Pair t = (Pair) array[i].head.next.x;
+            while(array[i].size() != 0) {
+                Pair t = array[i].remove();
                 temp[hash(t.key)].add(t);
-                array[i].remove(t);
             }
         }
         array = temp;
     }
+
+
+
 }

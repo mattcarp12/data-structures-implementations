@@ -3,14 +3,14 @@ package com.mattcarp12.data_structures;
 public class LinkedList<T> implements ListI<T> {
 
     public static class Node<T> {
-        T x;
-        Node next;
+        public T x;
+        public Node next;
         public Node(T x) {
             this.x = x;
         }
     }
 
-    Node head; //front of the queue
+    public Node head; //front of the queue
 
     public LinkedList() {
         head = new Node(null);
