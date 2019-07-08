@@ -1,4 +1,4 @@
-package com.mattcarp12.data_structures;
+package com.mattcarp12.data_structures.Tree;
 
 import java.util.Iterator;
 

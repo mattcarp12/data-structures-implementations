@@ -1,4 +1,4 @@
-package com.mattcarp12.data_structures;
+package com.mattcarp12.data_structures.List;
 
 public class LinkedList<T> implements ListI<T> {
 

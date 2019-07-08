@@ -1,6 +1,6 @@
 package com.mattcarp12.data_structures.HashTable;
 
-import com.mattcarp12.data_structures.LinkedList;
+import com.mattcarp12.data_structures.List.LinkedList;
 
 //@SuppressWarnings("unchecked")
 public class HashMap<K, V> implements MapI<K, V> {

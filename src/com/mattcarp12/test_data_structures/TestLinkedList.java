@@ -1,6 +1,6 @@
 package com.mattcarp12.test_data_structures;
 
-import com.mattcarp12.data_structures.LinkedList;
+import com.mattcarp12.data_structures.List.LinkedList;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
