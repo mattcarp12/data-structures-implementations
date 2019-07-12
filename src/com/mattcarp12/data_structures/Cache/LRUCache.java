@@ -1,6 +1,5 @@
 package com.mattcarp12.data_structures.Cache;
 
-//import com.mattcarp12.data_structures.HashTable.*;
 import java.util.HashMap;
 import java.util.ArrayList;
 
