@@ -16,4 +16,10 @@ public class TestNQueens {
         assertTrue(q.board.lowerDiagIsClear(2,2));
         assertFalse(q.board.upperDiagIsClear(2,2));
     }
+
+    @Test
+    public void testSolve() {
+        NQueens q = new NQueens(5);
+        q.Solve();
+    }
 }

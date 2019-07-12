@@ -61,8 +61,20 @@ public class NQueens {
                     lowerDiagIsClear(queenRow, queenCol);
         }
 
-        void printBoard() {
+        String rowToString(int row) {
+            StringBuilder s = new StringBuilder(numCols());
+            for (int col = 0; col < numCols(); col++) {
+                if (board[row][col]) s.append(" Q ");
+                else s.append(" . ");
+            }
+            return s.toString();
+        }
 
+        void printBoard() {
+            for (int row = 0; row < numRows(); row++) {
+                System.out.println(rowToString(row));
+            }
+            System.out.println("");
         }
 
         void toListString() {
@@ -80,21 +92,16 @@ public class NQueens {
         Solve(0);
     }
 
-    private boolean Solve(int col) {
-        if (col >= board.numCols()) return true;
-
+    private void Solve(int col) {
+        if (col >= board.numCols()) {
+            board.printBoard();
+        }
         for (int row = 0; row < board.numRows(); row++) {
             if (board.isSafe(row, col)) {
                 board.placeQueen(row, col);
-                boolean trySol = Solve(col + 1);
-                if (trySol) return true;
+                Solve(col + 1);
                 board.removeQueen(row, col);
             }
-            if (col == 0) board.printBoard();
         }
-        return false;
     }
-
-
-
 }
