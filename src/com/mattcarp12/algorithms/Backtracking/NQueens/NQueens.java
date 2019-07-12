@@ -2,9 +2,10 @@ package com.mattcarp12.algorithms.Backtracking.NQueens;
 
 public class NQueens {
 
-    private class Board {
+    class Board {
         int N;
         boolean[][] board;
+
         Board(int N) {
             this.N = N;
             board = new boolean[N][N];
@@ -14,6 +15,11 @@ public class NQueens {
                 }
             }
         }
+
+        int numCols() { return N; }
+
+        int numRows() { return N; }
+
         void placeQueen(int row, int col) {
             if (row >= N || row < 0 || col < 0 || col >= N)
                 throw new IllegalArgumentException("Illegal row/col value.");
@@ -68,6 +74,25 @@ public class NQueens {
 
     NQueens(int N) {
         this.board = new Board(N);
+    }
+
+    public void Solve() {
+        Solve(0);
+    }
+
+    private boolean Solve(int col) {
+        if (col >= board.numCols()) return true;
+
+        for (int row = 0; row < board.numRows(); row++) {
+            if (board.isSafe(row, col)) {
+                board.placeQueen(row, col);
+                boolean trySol = Solve(col + 1);
+                if (trySol) return true;
+                board.removeQueen(row, col);
+            }
+            if (col == 0) board.printBoard();
+        }
+        return false;
     }
 
 
