@@ -19,7 +19,7 @@ public class TestNQueens {
 
     @Test
     public void testSolve() {
-        NQueens q = new NQueens(5);
+        NQueens q = new NQueens(14);
         q.Solve();
     }
 }

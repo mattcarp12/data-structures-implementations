@@ -83,18 +83,22 @@ public class NQueens {
     }
 
     public Board board;
+    int count;
 
     NQueens(int N) {
         this.board = new Board(N);
+        count = 0;
     }
 
     public void Solve() {
         Solve(0);
+        System.out.println(count);
     }
 
     private void Solve(int col) {
         if (col >= board.numCols()) {
-            board.printBoard();
+            //board.printBoard();
+            count++;
         }
         for (int row = 0; row < board.numRows(); row++) {
             if (board.isSafe(row, col)) {
