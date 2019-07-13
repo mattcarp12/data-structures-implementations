@@ -20,7 +20,14 @@ public class DigraphAdjList {
             adj[v] = new HashSet<Integer>();
     }
 
+    private void validateVertex(int v) {
+        if (v < 0 || v >= V)
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+    }
+
     public void addEdge(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
         adj[v].add(w);
         indegree[w]++;
         E++;
@@ -37,9 +44,9 @@ public class DigraphAdjList {
     }
 
     private boolean hasCycleDFS(boolean[] visited, boolean[] recStack, int v) {
+        if (recStack[v]) return true;
         if (visited[v]) return false;
         visited[v] = true;
-        if (recStack[v]) return true;
         recStack[v] = true;
         for(int child : adj[v])
             if(hasCycleDFS(visited, recStack, child)) return true;

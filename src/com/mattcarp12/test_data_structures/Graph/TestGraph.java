@@ -1,4 +1,4 @@
-package com.mattcarp12.test_data_structures;
+package com.mattcarp12.test_data_structures.Graph;
 
 import com.mattcarp12.data_structures.Graph.Graph;
 import com.mattcarp12.data_structures.Graph.GraphAdjacencyMatrix;
