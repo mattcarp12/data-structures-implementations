@@ -2,6 +2,7 @@ package com.mattcarp12.data_structures.Graph;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 public class DigraphAdjList {
 
@@ -52,5 +53,24 @@ public class DigraphAdjList {
             if(hasCycleDFS(visited, recStack, child)) return true;
         recStack[v] = false;
         return false;
+    }
+
+    public int[] topologicalSort() {
+        int[] top = new int[V];
+        Stack<Integer> stack = new Stack();
+        boolean[] visited = new boolean[V];
+        for (int i = 0; i < V; i++)
+            if (!visited[i]) topologicalSortHelper(i, stack, visited);
+        int i = 0;
+        while (!stack.isEmpty())
+            top[i++] = stack.pop();
+        return top;
+    }
+
+    private void topologicalSortHelper(int v, Stack stack, boolean[] visited) {
+        visited[v] = true;
+        for (int i : adj[v])
+            if (!visited[i]) topologicalSortHelper(i, stack, visited);
+        stack.push(v);
     }
 }
