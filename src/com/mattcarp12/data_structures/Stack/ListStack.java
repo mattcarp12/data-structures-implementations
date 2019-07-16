@@ -3,6 +3,7 @@ package com.mattcarp12.data_structures.Stack;
 public class ListStack<T> implements Stack<T>{
 
     Node head;
+    int size;
 
     public ListStack() {
         head = null;
@@ -14,12 +15,14 @@ public class ListStack<T> implements Stack<T>{
         Node t = new Node(x);
         t.next = head;
         head = t;
+        size++;
     }
 
     @Override
     public T pop() {
         T t = (T) head.val;
         head = head.next;
+        size--;
         return t;
     }
 
@@ -31,6 +34,11 @@ public class ListStack<T> implements Stack<T>{
     @Override
     public boolean isEmpty() {
         return head == null;
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 }
 

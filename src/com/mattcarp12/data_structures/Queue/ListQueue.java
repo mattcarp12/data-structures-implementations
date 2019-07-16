@@ -23,6 +23,7 @@ public class ListQueue<T> implements Queue<T> {
         n.next = null;
         front = n;
         size--;
+        return t;
     }
 
     @Override
