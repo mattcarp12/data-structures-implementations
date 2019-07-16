@@ -1,6 +1,7 @@
 package com.mattcarp12.test_data_structures.Stack;
 
 import com.mattcarp12.data_structures.Stack.ArrayStack;
+import com.mattcarp12.data_structures.Stack.ListStack;
 import com.mattcarp12.data_structures.Stack.Stack;
 import org.junit.Test;
 
@@ -18,6 +19,23 @@ public class TestStack {
         s.push(3);
         s.push(4);
         s.push(5);
+        s.pop();
+        s.pop();
+        assertFalse(s.isEmpty());
+        System.out.println(s.peek());
+    }
+
+    @Test
+    public void testListStack() {
+        Stack<Integer> s = new ListStack<>();
+        assertTrue(s.isEmpty());
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
+        s.push(5);
+        s.pop();
+        s.pop();
         assertFalse(s.isEmpty());
         System.out.println(s.peek());
     }
