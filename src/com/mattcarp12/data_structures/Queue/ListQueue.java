@@ -10,7 +10,12 @@ public class ListQueue<T> implements Queue<T> {
     public void enqueue(T x) {
         Node t = new Node(x);
         t.next = back;
-        back.prev = t;
+        if (!isEmpty()) {
+            back.prev = t;
+        }
+        if (isEmpty()) {
+            front = t;
+        }
         back = t;
         size++;
     }
@@ -39,6 +44,11 @@ public class ListQueue<T> implements Queue<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
     }
 }
 

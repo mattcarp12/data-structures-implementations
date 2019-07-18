@@ -5,6 +5,7 @@ public class ArrayStack<T> implements Stack<T> {
     int DEFAULT_SIZE = 4;
     int head;
     T[] stack;
+    int size;
 
     public ArrayStack() {
         stack = (T[]) new Object[DEFAULT_SIZE];
@@ -15,11 +16,13 @@ public class ArrayStack<T> implements Stack<T> {
     public void push(T x) {
         if (head == -1) resize();
         stack[head--] = x;
+        size++;
     }
 
     @Override
     public T pop() {
         head++;
+        size--;
         return stack[head];
     }
 
@@ -30,7 +33,7 @@ public class ArrayStack<T> implements Stack<T> {
 
     @Override
     public boolean isEmpty() {
-        return head == stack.length - 1;
+        return size == 0;
     }
 
     private void resize() {
@@ -42,5 +45,10 @@ public class ArrayStack<T> implements Stack<T> {
         }
         stack = temp;
         head = m;
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 }

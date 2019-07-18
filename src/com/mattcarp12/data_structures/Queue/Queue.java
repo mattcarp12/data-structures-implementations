@@ -6,4 +6,5 @@ public interface Queue<T> {
     T peekFront();
     T peekRear();
     int size();
+    boolean isEmpty();
 }
