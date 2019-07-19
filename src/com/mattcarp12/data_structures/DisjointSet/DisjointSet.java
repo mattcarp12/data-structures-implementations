@@ -6,8 +6,8 @@ package com.mattcarp12.data_structures.DisjointSet;
  * path compression (to keep tree height low).
  */
 public class DisjointSet {
-    int[] parent;
-    int[] weight;
+    private int[] parent;
+    private int[] weight;
 
     /**
      * Creates a new disjoint union object. Initially
@@ -50,12 +50,12 @@ public class DisjointSet {
         int root1 = find(i);
         int root2 = find(j);
         if (root1 != root2) {
-            if (weight[root1] < weight[root2]) {
-                parent[root1] = root2;
-                weight[root2] += weight[root1];
-            } else {
+            if (weight[root1] > weight[root2]) {
                 parent[root2] = root1;
                 weight[root1] += weight[root2];
+            } else {
+                parent[root1] = root2;
+                weight[root2] += weight[root1];
             }
         }
     }
