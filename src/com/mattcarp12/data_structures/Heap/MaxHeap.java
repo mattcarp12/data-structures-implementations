@@ -16,13 +16,15 @@ public class MaxHeap<T extends Comparable<T>> implements Heap<T> {
         for (int j = start; j > -1; j--) heapify(j);
     }
 
+
+
     @Override
     public void heapify(int i) {
         int largest = i;
         int l = 2*i + 1;
         int r = 2*i + 2;
 
-        if (l < n && heap[l].compareTo(heap[i]) > 0) largest = l;
+        if (l < n && heap[l].compareTo(heap[largest]) > 0) largest = l;
         if (r < n && heap[r].compareTo(heap[largest]) > 0) largest = r;
 
         if (largest != i) {
