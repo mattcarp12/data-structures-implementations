@@ -1,5 +1,6 @@
 package com.mattcarp12.algorithms.Sorting;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class InsertionSort {
@@ -14,6 +15,10 @@ public class InsertionSort {
             }
             arr[j + 1] = key;
         }
+    }
+
+    public static void insertionSort(ArrayList arr) {
+
     }
 
     public static void main(String[] args) {
