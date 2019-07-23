@@ -15,15 +15,16 @@ public class BucketSort {
         for (int i = 0; i < n; i++) {
             if (arr[i] > M) M = arr[i];
         }
+        M = M+1;
         for (int i = 0; i < n; i++) {
             key = arr[i];
-            buckets[Math.floor(k * (double)key / M)].add(key);
+            buckets[(int)Math.floor(k * (double)key / M)].add(key);
         }
         ArrayList<Integer> result1 = new ArrayList<Integer>();
         int[] result = new int[n];
         for (int i = 0; i < k; i++) {
-            Collections.sort(buckets[k]);
-            result1.addAll(buckets[k]);
+            Collections.sort(buckets[i]);
+            result1.addAll(buckets[i]);
         }
         for (int i = 0; i < n; i++)
             result[i] = result1.get(i);
