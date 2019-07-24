@@ -73,4 +73,12 @@ public class DigraphAdjList {
             if (!visited[i]) topologicalSortHelper(i, stack, visited);
         stack.push(v);
     }
+
+    int numVerticies() {
+        return V;
+    }
+
+    Set<Integer> adjVerticies(int v) {
+        return adj[v];
+    }
 }

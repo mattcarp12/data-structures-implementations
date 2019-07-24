@@ -8,4 +8,5 @@ public interface Graph {
     boolean hasEdge(int i, int j);
     List outEdges(int i);
     List inEdges(int i);
+    int numVerticies();
 }
