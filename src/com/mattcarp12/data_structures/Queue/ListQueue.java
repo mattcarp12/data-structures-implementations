@@ -23,10 +23,14 @@ public class ListQueue<T> implements Queue<T> {
     @Override
     public T dequeue() {
         T t = (T) front.val;
-        Node n = front.prev;
-        front.prev = null;
-        n.next = null;
-        front = n;
+        if (size == 1) {
+            back = front = null;
+        } else {
+            Node n = front.prev;
+            front.prev = null;
+            n.next = null;
+            front = n;
+        }
         size--;
         return t;
     }

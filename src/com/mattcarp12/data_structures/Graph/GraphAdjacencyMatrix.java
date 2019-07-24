@@ -6,11 +6,17 @@ import java.util.List;
 public class GraphAdjacencyMatrix implements Graph {
 
     boolean[][] G;
+
     int V;
     int E;
     public GraphAdjacencyMatrix(int V) {
         this.V = V;
         G = new boolean[V][V];
+    }
+
+    @Override
+    public int numVerticies() {
+        return V;
     }
 
     @Override

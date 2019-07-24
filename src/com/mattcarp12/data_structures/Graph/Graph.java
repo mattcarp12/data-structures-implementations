@@ -9,4 +9,5 @@ public interface Graph {
     List outEdges(int i);
     List inEdges(int i);
     int numVerticies();
+
 }

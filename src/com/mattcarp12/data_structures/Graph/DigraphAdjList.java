@@ -74,11 +74,11 @@ public class DigraphAdjList {
         stack.push(v);
     }
 
-    int numVerticies() {
+    public int numVerticies() {
         return V;
     }
 
-    Set<Integer> adjVerticies(int v) {
+    public Set<Integer> adjVerticies(int v) {
         return adj[v];
     }
 }
