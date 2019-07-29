@@ -23,6 +23,8 @@ public interface Tree<K, V> {
     void invertTree();
 
     Iterator keys(TraversalType type);
+
+    int height();
 }
 
 enum TraversalType {

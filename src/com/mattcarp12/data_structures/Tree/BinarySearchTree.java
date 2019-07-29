@@ -190,6 +190,21 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         return node;
     }
 
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node tree) {
+        int leftHeight, rightHeight;
+        leftHeight = rightHeight = 0;
+        if (tree.left == null && tree.right == null) return 0;
+        if (tree.left != null)
+            leftHeight = height(tree.left);
+        if (tree.right != null)
+            rightHeight = height(tree.right);
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+
     /*
     public K kthSmallest(int k) {
         int count = 0;
@@ -223,12 +238,14 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements Tree<K, V> 
         bst.put(5, "FooBar");
         System.out.println(bst.get(20));
         System.out.println(bst.size());
+        System.out.println("Height of this tree is: " + bst.height());
         bst.put(20,"Good night.");
         System.out.println(bst.get(20));
         System.out.println(bst.size());
         bst.put(0, "Matt");
         bst.put(7, "Ryan");
         bst.put(14, "Carpenter");
+        System.out.println("Height of this tree is: " + bst.height());
         bst.invertTree();
 
         Integer[] keys = {0,1,2,3,4,5,6};
