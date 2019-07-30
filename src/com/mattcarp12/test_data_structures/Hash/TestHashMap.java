@@ -1,16 +1,15 @@
-package com.mattcarp12.test_data_structures;
+package com.mattcarp12.test_data_structures.Hash;
 
-import com.mattcarp12.data_structures.HashTable.HashTable;
+import com.mattcarp12.data_structures.HashTable.HashMap;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-public class TestHashTable {
+public class TestHashMap {
 
     @Test
-    public void TestHashTableFunctions() {
-        HashTable<String, String> test = new HashTable();
+    public void TestHashMapFunctions() {
+        HashMap<String, String> test = new HashMap();
         test.put("Foo", "Bar");
         test.put("Word", "Association");
         test.put("Key", "Value");
