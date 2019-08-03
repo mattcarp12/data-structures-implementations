@@ -3,6 +3,7 @@ package com.mattcarp12.data_structures.Tree;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 class Node {
     int freq;
@@ -19,15 +20,18 @@ class Node {
         this.left = left;
         this.right = right;
     }
+
+
 }
 
 public class Huffman {
 
     private Node huffTree;
+    private Map<Character, String> huffMap = new HashMap<>();
+    private String unencoded;
+    private String encoded;
 
-    public Huffman (String text) {
-        buildHuffmanTree(text);
-    }
+    public Huffman () { }
 
     private void buildHuffmanTree(String text) {
         Map<Character, Integer> freqMap = new HashMap<>();
@@ -51,6 +55,30 @@ public class Huffman {
         }
 
         this.huffTree = pq.poll();
+    }
+
+    private void buildHuffmanMap() {
+        Stack<Node> stack = new Stack<>();
+        Node curr = huffTree;
+        while (!stack.isEmpty() || curr != null) {
+            if (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }else {
+                curr = stack.pop();
+                curr = curr.right;
+            }
+
+        }
+    }
+
+    public void encode(String text) {
+        if (huffTree == null) buildHuffmanTree(text);
+        if (huffMap == null) buildHuffmanMap();
+        StringBuilder sb = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            sb.append(huffMap.get(c));
+        }
     }
 
 

@@ -5,7 +5,7 @@ import com.mattcarp12.data_structures.Tree.Huffman;
 public class TestHuffman {
 
     public static void main(String[] args) {
-        Huffman huff = new Huffman("I love coding!");
+        Huffman huff = new Huffman();
     }
 
 }
